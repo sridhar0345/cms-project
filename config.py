@@ -16,16 +16,14 @@ class Config:
     CLIENT_ID = os.environ.get('CLIENT_ID')
     CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
     
-    SQLALCHEMY_DATABASE_URI = (
-        'mssql+pyodbc://{username}:{password}@{server}/{database}'
-        '?driver=ODBC+Driver+17+for+SQL+Server'
-    ).format(
-        username=SQL_USER_NAME,
-        password=SQL_PASSWORD,
-        server=SQL_SERVER,
-        database=SQL_DATABASE
-    )
-    
+SQLALCHEMY_DATABASE_URI = (
+    'mssql+pymssql://{username}:{password}@{server}/{database}'
+).format(
+    username=SQL_USER_NAME,
+    password=SQL_PASSWORD,
+    server=SQL_SERVER,
+    database=SQL_DATABASE
+)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     SESSION_TYPE = 'filesystem'
