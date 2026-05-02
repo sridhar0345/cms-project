@@ -23,9 +23,10 @@ def new_post():
     form = EditForm()
     if form.validate_on_submit():
         post = Post()
-        post.save_changes(form, request.files['image_path'], current_user.id, new=True)
+        file = request.files.get('image_path')
+        post.save_changes(form, file, current_user.id, new=True)
         return redirect(url_for('index'))
-    return render_template('edit.html', title='Create Post', form=form)
+    return render_template('edit.html', title='Create Post', form=form, post=None)
 
 @app.route('/post/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -33,7 +34,8 @@ def post(id):
     post = Post.query.get(id)
     form = EditForm()
     if form.validate_on_submit():
-        post.save_changes(form, request.files['image_path'], current_user.id)
+        file = request.files.get('image_path')
+        post.save_changes(form, file, current_user.id)
         return redirect(url_for('post', id=post.id))
     return render_template('edit.html', title='Edit Post', form=form, post=post)
 
