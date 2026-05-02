@@ -1,16 +1,13 @@
 import uuid
 import logging
-from datetime import datetime
 from flask import render_template, session, request, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
-from werkzeug.urls import url_parse
-from msal import ConfidentialClientApplication
+from urllib.parse import urlparse as url_parse
 from FlaskWebProject import app, db
-from FlaskWebProject.forms import EditForm, LoginForm
+from FlaskWebProject.forms import PostForm as EditForm, LoginForm
 from FlaskWebProject.models import User, Post
 import msal
 
-# Configure logging
 logger = logging.getLogger(__name__)
 
 @app.route('/')
