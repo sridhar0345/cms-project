@@ -21,11 +21,14 @@ def index():
 @login_required
 def new_post():
     form = EditForm()
-    if form.validate_on_submit():
-        post = Post()
-        file = request.files.get('image_path')
-        post.save_changes(form, file, current_user.id, new=True)
-        return redirect(url_for('index'))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            post = Post()
+            file = request.files.get('image_path')
+            post.save_changes(form, file, current_user.id, new=True)
+            return redirect(url_for('index'))
+        else:
+            flash('Form validation failed: ' + str(form.errors))
     return render_template('edit.html', title='Create Post', form=form, post=None)
 
 @app.route('/post/<int:id>', methods=['GET', 'POST'])
