@@ -15,9 +15,9 @@
     </div>
     <br>
     <div>
-        <label>Body</label><br>
-        {{ form.body(class="form-control", rows=10, cols=50) }}
-    </div>
+    <label>Body</label><br>
+    {{ form.body(class="form-control", rows=10, cols=50, value=post.body if post else '') }}
+</div>
     <br>
     <div>
         {% if post and post.image_path %}
